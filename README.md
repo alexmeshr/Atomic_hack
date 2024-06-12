@@ -1,5 +1,11 @@
 # Атомик Хак 2.0
 
+# Разработка
+
+- коммиты в `main` - это норма (времени мало делать нормально)
+- за `git push --force ...` сломаю колено в двух местах
+  - `git push --force-with-lease ...` - окей
+
 # Установка
 
 Ставим `docker` и `docker-compose`. Инструкции есть на официальном сайте [тут](https://docs.docker.com/get-docker/) и [тут](https://docs.docker.com/compose/install/).
