@@ -20,22 +20,19 @@ docker run hello-world
 git clone git@github.com:alexmeshr/Atomic_hack.git
 ```
 
-2. Собираем docker-образ
+2. Используем dev-ops магию
 
 В `Dockerfile` описан базовый образ. На его основе запускаются все воркеры.
-По умолчанию он запускает web-сервер.
+По умолчанию он запускает web-сервер. Но в `docker-compose.yaml` он используется для всего
+(там кастомизируется `cmd`).
 
-Собираем образ (зададим тэг для `ahack-web` для удобства)
+Запускаем `docker-compose` и он всё сделает
 ```bash
-docker build . --tag ahack-web
+docker-compose up
 ```
+Для остановки нужно нажать `Ctrl-C`
 
-3. Запускаем
-```bash
-docker run -p 8888:8888 ahack-web
-```
-
-4. Проверяем
+3. Проверяем
 Заходим на страницу [127.0.0.1:8888/ping](127.0.0.1:8888/ping) и проверяем, что пришёл ответ
 ```json
 {"message":"pong"}
