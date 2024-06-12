@@ -3,3 +3,19 @@ services:
     build: .
     ports:
       - "8888:8888"
+
+  postgres:
+    image: postgres:16.3-bookworm
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "123"
+      POSTGRES_DB: "db"
+    volumes:
+      - "./src/atomic_hack/database/postgres:/docker-entrypoint-initdb.d"
+      - "postgres-data:/var/lib/postgresql/data"
+
+volumes:
+  postgres-data:
+    driver: local
