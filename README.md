@@ -52,7 +52,16 @@ docker-compose down -v
 ### А как запустить
 
 Точкой входа всегда является файлик `cli.py`. Функции, помеченные декоратором `@cli.command` можно
-запустить. Например web-server стартует в функции `run_server`. В `docker-compose.yaml` запуск этого сервиса
+запустить. Например web-server стартует в функции `run_server`.
+```python
+@cli.command
+@click.option('--host', default='0.0.0.0')
+@click.option('--port', default=8888)
+def run_server(host: str, port: int):
+  uvicorn.run(app, host=host, port=port)
+```
+
+В `docker-compose.yaml` запуск этого сервиса
 выглядит так:
 ```yaml
 services:
