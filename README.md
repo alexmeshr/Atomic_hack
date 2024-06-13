@@ -32,6 +32,11 @@ docker-compose up
 ```
 Для остановки нужно нажать `Ctrl-C`
 
+При изменении кода, нужно пересобрать docker-образ. Для этого можно запустить с флагом `--build`
+```bash
+docker-compose up --build
+```
+
 Если стартануло плохо, можно попробовать удалить `volumes`
 ```bash
 docker-compose down -v
