@@ -49,6 +49,10 @@ docker-compose down -v
 - за `git push --force ...` сломаю колено в двух местах
   - `git push --force-with-lease ...` - окей
 
+### Поставьте poetry локально - будет удобнее устанавливать всякое
+
+Инструкция есть вот тут: [python-poetry.org](https://python-poetry.org/docs/#installation)
+
 ### А как запустить
 
 Точкой входа всегда является файлик `cli.py`. Функции, помеченные декоратором `@cli.command` можно
