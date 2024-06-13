@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ImmutableAtomic</title>
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <style>
+        * {
+          font-family: sans-serif;
+        }
+
+        @keyframes blink-stages {
+            from {
+                visibility: visible;
+                background-color: #888;
+                transform: rotate(+1deg);
+            }
+            to {
+                visibility: visible;
+                background-color: #ccc;
+                transform: rotate(-1deg);
+            }
+        }
+
+        .grey-blink {
+            visibility: hidden;
+            animation-delay: 1s;
+            animation-name: blink-stages;
+            animation-duration: 0.5s;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+    </style>
+</head>
+<body bgcolor="#3941a7">
+    <div style="width: 1024px; height: 820px">
+        <div
+            class="outer"
+            style="
+                width: 100%;
+                height: 100%;
+                position: relative;
+                border: 2px solid white;
+                border-radius: 5px;
+
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+            "
+        >
+            <div
+                class="messages-list"
+                style="
+                    background-color: #8c90c5;
+                    border-radius: 5px;
+                    border: 2px solid white;
+                    width: 90%;
+                    height: 80%;
+                    margin-top: 2%;
+
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-start;
+                    align-items: center;
+                    overflow-y:scroll;
+                "
+            >
+                <div
+                    style="
+                        width: 100%;
+
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: flex-start;
+                        align-items: center;
+                    "
+                >
+                    <div
+                        style="
+                            padding: 15px;
+                            margin: 15px;
+                            max-width: 60%;
+                            border-radius: 15px 15px 15px 0px;
+                            background-color: #666;
+                        "
+                    >
+                        <div
+                            style="
+                                color: white;
+                                background-color: #666;
+                            "
+                        >
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            <br>Suspendisse bibendum porta arcu nec tempor.<br>Mauris et diam eget eros sagittis pretium id molestie tortor. Aliquam ut interdum erat, eget interdum risus. Aenean accumsan, tortor quis interdum tincidunt, arcu risus dictum diam, eu tincidunt tellus felis sit amet diam. Praesent lacinia faucibus arcu, ut tempus augue ultricies non. Aenean et leo ultricies, luctus orci scelerisque, laoreet leo. Praesent pulvinar fermentum pharetra. Phasellus sed purus est.
+                        </div>
+                    </div>
+                </div>
+                <div
+                    style="
+                        width: 100%;
+
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: flex-end;
+                        align-items: center;
+                    "
+                >
+                    <div
+                        style="
+                            padding: 15px;
+                            margin: 15px;
+                            max-width: 60%;
+                            border-radius: 15px 15px 0px 15px;
+                            background-color: #66c;
+                        "
+                    >
+                        <div
+                            style="
+                                color: white;
+                                background-color: #66c;
+                            "
+                        >
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            <br>Suspendisse bibendum porta arcu nec tempor.<br>Mauris et diam eget eros sagittis pretium id molestie tortor. Aliquam ut interdum erat, eget interdum risus. Aenean accumsan, tortor quis interdum tincidunt, arcu risus dictum diam, eu tincidunt tellus felis sit amet diam. Praesent lacinia faucibus arcu, ut tempus augue ultricies non. Aenean et leo ultricies, luctus orci scelerisque, laoreet leo. Praesent pulvinar fermentum pharetra. Phasellus sed purus est.
+                        </div>
+                    </div>
+                </div>
+                <div
+                    style="
+                        width: 100%;
+
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: flex-end;
+                        align-items: center;
+                    "
+                >
+                    <div
+                        style="
+                            padding: 15px;
+                            margin: 15px;
+                            max-width: 60%;
+                            border-radius: 15px 15px 0px 15px;
+                            background-color: #66c;
+                        "
+                    >
+                        <div
+                            style="
+                                color: white;
+                                background-color: #66c;
+                            "
+                        >
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            <br>Suspendisse bibendum porta arcu nec tempor.<br>Mauris et diam eget eros sagittis pretium id molestie tortor. Aliquam ut interdum erat, eget interdum risus. Aenean accumsan, tortor quis interdum tincidunt, arcu risus dictum diam, eu tincidunt tellus felis sit amet diam. Praesent lacinia faucibus arcu, ut tempus augue ultricies non. Aenean et leo ultricies, luctus orci scelerisque, laoreet leo. Praesent pulvinar fermentum pharetra. Phasellus sed purus est.
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    style="
+                        width: 100%;
+
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: flex-end;
+                        align-items: center;
+                    "
+                >
+                    <div
+                        style="
+                            padding: 15px;
+                            margin: 15px;
+                            max-width: 60%;
+                            border-radius: 15px 15px 0px 15px;
+                            background-color: #66c;
+                        "
+                    >
+                        <div
+                            style="
+                                color: white;
+                                background-color: #66c;
+                            "
+                        >
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            <br>Suspendisse bibendum porta arcu nec tempor.<br>Mauris et diam eget eros sagittis pretium id molestie tortor. Aliquam ut interdum erat, eget interdum risus. Aenean accumsan, tortor quis interdum tincidunt, arcu risus dictum diam, eu tincidunt tellus felis sit amet diam. Praesent lacinia faucibus arcu, ut tempus augue ultricies non. Aenean et leo ultricies, luctus orci scelerisque, laoreet leo. Praesent pulvinar fermentum pharetra. Phasellus sed purus est.
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    style="
+                        width: 100%;
+
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: flex-start;
+                        align-items: center;
+                    "
+                >
+                    <div
+                        class="grey-blink"
+                        style="
+                            margin: 10px 0 20px 30px;
+
+                            width: 120px;
+                            height: 10px;
+                            border-radius: 5px;
+                            background-color: #888;
+                        "
+                    >
+
+                    </div>
+                </div>
+            </div>
+            <div
+                class="input-field-with-button"
+                style="
+                    width: 100%;
+                    height: 10%;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-around;
+                    align-items: center;
+                "
+            >
+                <div class="input-holder" style="width: 70%;">
+                    <textarea name="input-area" cols="80" rows="2"></textarea>
+                </div>
+                <div class="btn-holder" style="width: 10%; height: 60%;">
+                    <button style="width: 100%; height: 100%;">Отправить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
