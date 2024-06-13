@@ -26,7 +26,7 @@ git clone git@github.com:alexmeshr/Atomic_hack.git
 По умолчанию он запускает web-сервер. Но в `docker-compose.yaml` он используется для всего
 (там кастомизируется `cmd`).
 
-Запускаем `docker-compose` и он всё сделает
+Запускаем `docker-compose` и он всё сделает (первый раз может запускаться +-минуту)
 ```bash
 docker-compose up
 ```

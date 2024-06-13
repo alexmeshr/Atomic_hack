@@ -10,4 +10,5 @@ RUN \
     /root/.local/bin/poetry env use $(cat .python-version) && \
     /root/.local/bin/poetry install
 
-CMD ["/root/.local/bin/poetry", "run", "ahack", "run-server"]
+ENTRYPOINT ["/root/.local/bin/poetry", "run"]
+CMD ["ahack", "run-server"]

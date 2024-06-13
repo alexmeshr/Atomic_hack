@@ -1,17 +1,22 @@
 services:
   ahack-web:
     build: .
+    command: ahack run-server
     ports:
       - "8888:8888"
+    env_file:
+      - 'pg_config.env'
+    depends_on:
+      - postgres
 
   postgres:
-    image: postgres:16.3-bookworm
+    build:
+      context: .
+      dockerfile: pgvector.dockerfile
     ports:
       - "5432:5432"
-    environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "123"
-      POSTGRES_DB: "db"
+    env_file:
+      - 'pg_config.env'
     volumes:
       - "./src/atomic_hack/database/postgres:/docker-entrypoint-initdb.d"
       - "postgres-data:/var/lib/postgresql/data"
