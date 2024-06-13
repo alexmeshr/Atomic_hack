@@ -5,7 +5,7 @@ from atomic_hack.deps import get_pg_cursor
 from atomic_hack.entities.chat import ChatSession
 
 
-def get_session_by_id(session_id: UUID):
+def get_session_by_id(session_id: UUID) -> list[ChatSession]:
     with get_pg_cursor() as cursor:
         cursor.execute(
             '''

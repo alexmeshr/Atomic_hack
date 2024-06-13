@@ -8,6 +8,14 @@ services:
       - 'pg_config.env'
     depends_on:
       - postgres
+    logging:
+      driver: none
+
+  ahack-experiments:
+    build: .
+    command: ahack do
+    depends_on:
+      - postgres
 
   postgres:
     build:
@@ -20,6 +28,8 @@ services:
     volumes:
       - "./src/atomic_hack/database/postgres:/docker-entrypoint-initdb.d"
       - "postgres-data:/var/lib/postgresql/data"
+    logging:
+      driver: none
 
 volumes:
   postgres-data:
