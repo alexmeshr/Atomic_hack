@@ -23,7 +23,6 @@ class ChatSession(BaseModel):
     def form_sequence(cls, it: Sequence[Any]) -> Self:
         return cls(**{k: v for k, v in zip(cls.__fields__.keys(), it)})
 
-
     @classmethod
     def from_sequence2(cls, it2: Sequence[Sequence[Any]]) -> list[Self]:
         # сори, не придумал название лучше
