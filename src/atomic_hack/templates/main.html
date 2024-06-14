@@ -51,7 +51,7 @@
             <div
                 class="messages-list"
                 style="
-                    background-color: #8c90c5;
+                    background-color: #ddd;
                     border-radius: 5px;
                     border: 2px solid white;
                     width: 90%;
@@ -65,152 +65,7 @@
                     overflow-y:scroll;
                 "
             >
-                <div
-                    style="
-                        width: 100%;
-
-                        display: flex;
-                        flex-direction: row;
-                        justify-content: flex-start;
-                        align-items: center;
-                    "
-                >
-                    <div
-                        style="
-                            padding: 15px;
-                            margin: 15px;
-                            max-width: 60%;
-                            border-radius: 15px 15px 15px 0px;
-                            background-color: #666;
-                        "
-                    >
-                        <div
-                            style="
-                                color: white;
-                                background-color: #666;
-                            "
-                        >
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            <br>Suspendisse bibendum porta arcu nec tempor.<br>Mauris et diam eget eros sagittis pretium id molestie tortor. Aliquam ut interdum erat, eget interdum risus. Aenean accumsan, tortor quis interdum tincidunt, arcu risus dictum diam, eu tincidunt tellus felis sit amet diam. Praesent lacinia faucibus arcu, ut tempus augue ultricies non. Aenean et leo ultricies, luctus orci scelerisque, laoreet leo. Praesent pulvinar fermentum pharetra. Phasellus sed purus est.
-                        </div>
-                    </div>
-                </div>
-                <div
-                    style="
-                        width: 100%;
-
-                        display: flex;
-                        flex-direction: row;
-                        justify-content: flex-end;
-                        align-items: center;
-                    "
-                >
-                    <div
-                        style="
-                            padding: 15px;
-                            margin: 15px;
-                            max-width: 60%;
-                            border-radius: 15px 15px 0px 15px;
-                            background-color: #66c;
-                        "
-                    >
-                        <div
-                            style="
-                                color: white;
-                                background-color: #66c;
-                            "
-                        >
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            <br>Suspendisse bibendum porta arcu nec tempor.<br>Mauris et diam eget eros sagittis pretium id molestie tortor. Aliquam ut interdum erat, eget interdum risus. Aenean accumsan, tortor quis interdum tincidunt, arcu risus dictum diam, eu tincidunt tellus felis sit amet diam. Praesent lacinia faucibus arcu, ut tempus augue ultricies non. Aenean et leo ultricies, luctus orci scelerisque, laoreet leo. Praesent pulvinar fermentum pharetra. Phasellus sed purus est.
-                        </div>
-                    </div>
-                </div>
-                <div
-                    style="
-                        width: 100%;
-
-                        display: flex;
-                        flex-direction: row;
-                        justify-content: flex-end;
-                        align-items: center;
-                    "
-                >
-                    <div
-                        style="
-                            padding: 15px;
-                            margin: 15px;
-                            max-width: 60%;
-                            border-radius: 15px 15px 0px 15px;
-                            background-color: #66c;
-                        "
-                    >
-                        <div
-                            style="
-                                color: white;
-                                background-color: #66c;
-                            "
-                        >
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            <br>Suspendisse bibendum porta arcu nec tempor.<br>Mauris et diam eget eros sagittis pretium id molestie tortor. Aliquam ut interdum erat, eget interdum risus. Aenean accumsan, tortor quis interdum tincidunt, arcu risus dictum diam, eu tincidunt tellus felis sit amet diam. Praesent lacinia faucibus arcu, ut tempus augue ultricies non. Aenean et leo ultricies, luctus orci scelerisque, laoreet leo. Praesent pulvinar fermentum pharetra. Phasellus sed purus est.
-                        </div>
-                    </div>
-                </div>
-
-                <div
-                    style="
-                        width: 100%;
-
-                        display: flex;
-                        flex-direction: row;
-                        justify-content: flex-end;
-                        align-items: center;
-                    "
-                >
-                    <div
-                        style="
-                            padding: 15px;
-                            margin: 15px;
-                            max-width: 60%;
-                            border-radius: 15px 15px 0px 15px;
-                            background-color: #66c;
-                        "
-                    >
-                        <div
-                            style="
-                                color: white;
-                                background-color: #66c;
-                            "
-                        >
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            <br>Suspendisse bibendum porta arcu nec tempor.<br>Mauris et diam eget eros sagittis pretium id molestie tortor. Aliquam ut interdum erat, eget interdum risus. Aenean accumsan, tortor quis interdum tincidunt, arcu risus dictum diam, eu tincidunt tellus felis sit amet diam. Praesent lacinia faucibus arcu, ut tempus augue ultricies non. Aenean et leo ultricies, luctus orci scelerisque, laoreet leo. Praesent pulvinar fermentum pharetra. Phasellus sed purus est.
-                        </div>
-                    </div>
-                </div>
-
-                <div
-                    style="
-                        width: 100%;
-
-                        display: flex;
-                        flex-direction: row;
-                        justify-content: flex-start;
-                        align-items: center;
-                    "
-                >
-                    <div
-                        class="grey-blink"
-                        style="
-                            margin: 10px 0 20px 30px;
-
-                            width: 120px;
-                            height: 10px;
-                            border-radius: 5px;
-                            background-color: #888;
-                        "
-                    >
-
-                    </div>
-                </div>
+                {{ messages }}
             </div>
             <div
                 class="input-field-with-button"
@@ -227,7 +82,12 @@
                     <textarea name="input-area" cols="80" rows="2"></textarea>
                 </div>
                 <div class="btn-holder" style="width: 10%; height: 60%;">
-                    <button style="width: 100%; height: 100%;">Отправить</button>
+                    <button
+                        style="width: 100%; height: 100%;"
+                        hx-post="/send-message"
+                        hx-target=".messages-list"
+                        hx-include="[name=input-area]"
+                    >Отправить</button>
                 </div>
             </div>
         </div>

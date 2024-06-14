@@ -3,7 +3,8 @@ from uuid import UUID
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 
-from atomic_hack.entities.web import PingResponse
+from atomic_hack.entities.web import PingResponse, PostSendMessageRequest
+from atomic_hack.services import sessions
 
 app = FastAPI()
 
@@ -15,8 +16,10 @@ async def ping() -> PingResponse:
 
 @app.get('/chat')
 async def get_chat(session_id: UUID | None = None) -> HTMLResponse:
-    from os import path
-    from atomic_hack.settings import settings
-    with open(path.join(settings.templates_path, 'main.html'), 'r') as f:
-        data = f.read()
+    data = await sessions.load_session_by_id(session_id)
     return HTMLResponse(content=data, status_code=200)
+
+
+@app.post('/send-message')
+async def post_send_message(request: PostSendMessageRequest) -> HTMLResponse:
+    print(request)
