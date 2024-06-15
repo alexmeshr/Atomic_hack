@@ -1,5 +1,6 @@
-from abc import ABC, abstractmethod
-
+import torch
+import torch.nn.functional as F
+from sentence_transformers import SentenceTransformer
 from langchain_community.embeddings.gigachat import GigaChatEmbeddings
 from langchain_core.documents import Document
 from langchain_core.embeddings import Embeddings
@@ -7,28 +8,27 @@ from langchain_core.vectorstores import VectorStore
 from langchain_postgres.vectorstores import PGVector
 
 from atomic_hack.settings import settings
-from atomic_hack.utils import singleton
 
 
-class ABSVectorStorage(ABC):
-    _embeddings: Embeddings | None
-    _vectorstore: VectorStore | None
+class CustomEmbeddingsModel(Embeddings):
+    def __init__(self, model_name: str):
+        self.e_model = SentenceTransformer(model_name)
 
-    @abstractmethod
-    def setup(self): ...
+    def get_embedding(self, sentence):
+        e = self.e_model.encode(sentence, convert_to_tensor=True)
+        return e.tolist()
 
-    @abstractmethod
-    def add_texts(self, new_queries: list[str]): ...
+    def embed_documents(self, texts: list[str]) -> list[list[float]]:
+        return [self.get_embedding(t) for t in texts]
 
-    @abstractmethod
-    def get_k_closest(self, query: str, k: int) -> list[Document]: ...
+    def embed_query(self, text: str) -> list[float]:
+        return self.get_embedding(text)
 
 
-@singleton
-class PGVectorStorage(ABSVectorStorage):
+class PGVectorStorage:
     __slots__ = ['_embeddings', '_vectorstore']
 
-    _embeddings: GigaChatEmbeddings | None
+    _embeddings: CustomEmbeddingsModel | None
     _vectorstore: PGVector | None
 
     def __init__(self):
@@ -56,11 +56,7 @@ class PGVectorStorage(ABSVectorStorage):
         if self._embeddings is not None or self._vectorstore is not None:
             raise RuntimeError('setup() must be called only once')
 
-        self._embeddings = GigaChatEmbeddings(
-            credentials=settings.gigachat_credentials,
-            model=settings.gigachat_model,
-            verify_ssl_certs=False,
-        )
+        self._embeddings = CustomEmbeddingsModel(settings.embeddings_model_name)
 
         self._vectorstore = PGVector.from_texts(
             texts=[

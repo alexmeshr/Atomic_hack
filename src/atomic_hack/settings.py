@@ -16,10 +16,9 @@ class _Settings(BaseSettings):
     postgres_user: str = Field(...)
     postgres_password: str = Field(...)
     postgres_db: str = Field(...)
-    gigachat_credentials: str | None = Field(description='токен для доступа к gigachat', default=None)
-    gigachat_model: str = Field(
-        description='фикс используемой gigachat модели',
-        default='GigaChat',  # тэги вида `:latest` кажется отбрасываются (в списке моделей их нет)
+    embeddings_model_name: str = Field(
+        description='версия модельки для ембеддингов',
+        default='d0rj/e5-large-en-ru',
     )
     saiga_model_name: str = Field(
         description='версия модельки saiga',

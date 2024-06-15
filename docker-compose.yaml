@@ -3,13 +3,11 @@ services:
     build: .
     command: ahack run-server
     ports:
-      - "8888:8888"
+      - "80:8888"
     env_file:
       - 'pg_config.env'
     depends_on:
       - postgres
-    logging:
-      driver: none
 
   ahack-llm:
     build: .

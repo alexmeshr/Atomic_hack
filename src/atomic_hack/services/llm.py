@@ -7,7 +7,6 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, GenerationConfig
 
 from atomic_hack.entities.llm import MessageRole
 from atomic_hack.settings import settings
-from atomic_hack.utils import singleton
 
 logger = logging.getLogger(__name__)
 
@@ -39,7 +38,6 @@ ASSISTANT_ADDITIONAL_SUMMARIZATION_PROMPT: str = (
 )
 
 
-@singleton
 class SaigaLLM:
     __slots__ = ['_model', '_tokenizer', '_generation_config']
 
