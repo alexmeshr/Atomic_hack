@@ -35,7 +35,7 @@ SYSTEM_SUMMARIZATION_PROMPT: str = '''Тебе на вход будут прих
 '''
 
 ASSISTANT_ADDITIONAL_SUMMARIZATION_PROMPT: str = (
-    'Выдай ответ в нужном формате! Это должен быть json-файл без лишних слов и форматирования.'
+    'выдай ответ в нужном формате, там не должно быть лишних слов, не должно быть форматирования, не должно быть ```'
 )
 
 
@@ -79,6 +79,7 @@ class SaigaLLM:
     def summarize_user_input(self, user_input: str) -> list[str]:
         def _fetch_problems_from_user_input(msgs: list[LLMMessage]) -> list[str] | None:
             model_output = self.get_model_output(msgs)
+            print(model_output)
             return _try_get_problems(model_output)
 
         msgs = [
@@ -87,6 +88,7 @@ class SaigaLLM:
         ]
 
         user_problems = _fetch_problems_from_user_input(msgs)
+
         if user_problems is not None:
             return user_problems
 
@@ -116,7 +118,7 @@ def _try_get_problems(text: str, problems_key: str = 'problems') -> list[str] | 
         problems_list = json.loads(text).get(problems_key)
         assert isinstance(problems_list, list)
         for problem in problems_list:
-            assert isinstance(problems_list, str)
+            assert isinstance(problem, str)
     except Exception:
         return None
 
