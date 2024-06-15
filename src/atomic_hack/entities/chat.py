@@ -20,10 +20,10 @@ class ChatSession(BaseModel):
     meta: dict[str, Any] = Field(description='метаинфа', default_factory=dict)
 
     @classmethod
-    def form_sequence(cls, it: Sequence[Any]) -> Self:
+    def from_sequence(cls, it: Sequence[Any]) -> Self:
         return cls(**{k: v for k, v in zip(cls.__fields__.keys(), it)})
 
     @classmethod
     def from_sequence2(cls, it2: Sequence[Sequence[Any]]) -> list[Self]:
         # сори, не придумал название лучше
-        return [cls.from_iterable(it) for it in it2]
+        return [cls.from_sequence(it) for it in it2]

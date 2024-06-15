@@ -1,9 +1,11 @@
+from datetime import datetime
 from functools import lru_cache
-from uuid import UUID
+from uuid import UUID, uuid4
 
 import jinja2
 
 from atomic_hack.entities import chat
+from atomic_hack.repositories import pg_chat
 from atomic_hack.settings import settings
 
 
@@ -42,11 +44,42 @@ def _to_message(text: str, sender: chat.MessageSender) -> str:
     return sender2func[sender](text)
 
 
+async def load_messages_by_id(session_id: UUID) -> str:
+    messages: list[chat.ChatSession] = pg_chat.get_session_by_id(session_id)
+
+    if len(messages) == 0:
+        greeting_message = 'Привет! Ко мне можно обращаться со всеми вопросами!)'
+        pg_chat.insert_message(greeting_message, session_id, sender=chat.MessageSender.from_support)
+        messages.append(
+            chat.ChatSession(
+                session_id=session_id,
+                messaage_id=uuid4(),  # placeholder
+                sender=chat.MessageSender.from_support,
+                message=greeting_message,
+                messages_dttm=datetime.now(),  # placeholder
+                meta={},
+            )
+        )
+
+    # добавляем лоадер, если надо
+    loader: str = ''
+    if messages[-1].sender == chat.MessageSender.from_user:
+        loader = '\n' + _load_template('loading.jinja').render()
+
+    return '\n'.join(
+        [
+            _to_message(msg.message, msg.sender)
+            for msg in messages
+        ]
+    ) + loader
+
+
 async def load_session_by_id(session_id: UUID | None) -> str:
-    session_messages = [
-        _to_message('У меня нихрена не работает!', chat.MessageSender.from_user),
-        _to_message('У нас всё работает!', chat.MessageSender.from_support),
-    ]
+    session_id: UUID = session_id or uuid4()
+    messages = await load_messages_by_id(session_id)
 
     main = _load_template('main.html')
-    return main.render(messages='\n'.join(session_messages))
+    return main.render(
+        messages=messages,
+        session_id=session_id,
+    )

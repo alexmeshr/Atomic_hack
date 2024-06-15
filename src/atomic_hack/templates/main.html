@@ -23,7 +23,6 @@
 
         .grey-blink {
             visibility: hidden;
-            animation-delay: 1s;
             animation-name: blink-stages;
             animation-duration: 0.5s;
             animation-iteration-count: infinite;
@@ -49,6 +48,10 @@
             "
         >
             <div
+                hx-get="/messages"
+                hx-trigger="every 2s"
+                hx-swap="innerHTML"
+                hx-vals='{"session_id": "{{session_id}}"}'
                 class="messages-list"
                 style="
                     background-color: #ddd;
@@ -67,8 +70,9 @@
             >
                 {{ messages }}
             </div>
-            <div
+            <form
                 class="input-field-with-button"
+                hx-on::after-request="this.reset()"
                 style="
                     width: 100%;
                     height: 10%;
@@ -81,15 +85,17 @@
                 <div class="input-holder" style="width: 70%;">
                     <textarea name="input-area" cols="80" rows="2"></textarea>
                 </div>
-                <div class="btn-holder" style="width: 10%; height: 60%;">
+                <div class="btn-holder" style="width: 10%; height: 60%; display: flex; flex-direction: column; align: center; justify-content: center">
                     <button
                         style="width: 100%; height: 100%;"
                         hx-post="/send-message"
-                        hx-target=".messages-list"
+                        hx-swap="none"
                         hx-include="[name=input-area]"
+                        hx-vals='{"session_id": "{{session_id}}"}'
                     >Отправить</button>
+                    <a href="localhost:8888/chat?session_id={{session_id}}" style="color: #ddd;">ссылка сюда</a>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </body>

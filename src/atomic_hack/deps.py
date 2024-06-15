@@ -15,4 +15,10 @@ def get_pg_cursor() -> psycopg.connection.Connection:
         dbname=settings.postgres_db,
     )
 
-    yield conn.cursor()
+    cur = conn.cursor()
+
+    yield cur
+
+    conn.commit()
+    cur.close()
+    conn.close()
