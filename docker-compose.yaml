@@ -11,6 +11,15 @@ services:
   #   logging:
   #     driver: none
 
+  ahack-llm:
+    build: .
+    command: ahack llm-pipeline
+    env_file:
+      - 'pg_config.env'
+      - 'llm_credentials.env'
+    depends_on:
+      - postgres
+
   ahack-experiments:
     build: .
     command: ahack do
