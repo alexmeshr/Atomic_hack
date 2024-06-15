@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ImmutableAtomic</title>
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <style>
+        * {
+          font-family: sans-serif;
+        }
+
+        @keyframes blink-stages {
+            from {
+                visibility: visible;
+                background-color: #888;
+                transform: rotate(+1deg);
+            }
+            to {
+                visibility: visible;
+                background-color: #ccc;
+                transform: rotate(-1deg);
+            }
+        }
+
+        .grey-blink {
+            visibility: hidden;
+            animation-name: blink-stages;
+            animation-duration: 0.5s;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+    </style>
+</head>
+<body bgcolor="#3941a7">
+    <div style="width: 1024px; height: 820px">
+        <div
+            class="outer"
+            style="
+                width: 100%;
+                height: 100%;
+                position: relative;
+                border: 2px solid white;
+                border-radius: 5px;
+
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+            "
+        >
+            <div
+                hx-get="/messages"
+                hx-trigger="every 2s"
+                hx-swap="innerHTML"
+                hx-vals='{"session_id": "{{session_id}}"}'
+                class="messages-list"
+                style="
+                    background-color: #ddd;
+                    border-radius: 5px;
+                    border: 2px solid white;
+                    width: 90%;
+                    height: 80%;
+                    margin-top: 2%;
+
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-start;
+                    align-items: center;
+                    overflow-y:scroll;
+                "
+            >
+                {{ messages }}
+            </div>
+            <form
+                class="input-field-with-button"
+                hx-on::after-request="this.reset()"
+                style="
+                    width: 100%;
+                    height: 10%;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-around;
+                    align-items: center;
+                "
+            >
+                <div class="input-holder" style="width: 70%;">
+                    <textarea name="input-area" cols="80" rows="2"></textarea>
+                </div>
+                <div class="btn-holder" style="width: 10%; height: 60%; display: flex; flex-direction: column; align: center; justify-content: center">
+                    <button
+                        style="width: 100%; height: 100%;"
+                        hx-post="/send-message"
+                        hx-swap="none"
+                        hx-include="[name=input-area]"
+                        hx-vals='{"session_id": "{{session_id}}"}'
+                    >Отправить</button>
+                    <a href="localhost:8888/chat?session_id={{session_id}}" style="color: #ddd;">ссылка сюда</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
