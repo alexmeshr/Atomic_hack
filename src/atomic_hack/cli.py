@@ -1,6 +1,7 @@
 import click
 import uvicorn
 
+from atomic_hack.services import pipeline
 from atomic_hack.web import app
 
 
@@ -17,5 +18,10 @@ def run_server(host: str, port: int):
 
 
 @cli.command
+def llm_pipeline():
+    pipeline.summarization_example()
+
+
+@cli.command
 def do():
-    print('hello')
+    pass

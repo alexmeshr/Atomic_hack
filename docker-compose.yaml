@@ -1,19 +1,22 @@
 services:
-  ahack-web:
-    build: .
-    command: ahack run-server
-    ports:
-      - "8888:8888"
-    env_file:
-      - 'pg_config.env'
-    depends_on:
-      - postgres
-    logging:
-      driver: none
+  # ahack-web:
+  #   build: .
+  #   command: ahack run-server
+  #   ports:
+  #     - "8888:8888"
+  #   env_file:
+  #     - 'pg_config.env'
+  #   depends_on:
+  #     - postgres
+  #   logging:
+  #     driver: none
 
   ahack-experiments:
     build: .
     command: ahack do
+    env_file:
+      - 'pg_config.env'
+      - 'llm_credentials.env'
     depends_on:
       - postgres
 
