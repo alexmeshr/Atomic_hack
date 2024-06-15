@@ -1,13 +1,13 @@
 from contextlib import contextmanager
 
-import psycopg2
+import psycopg
 
 from atomic_hack.settings import settings
 
 
 @contextmanager
-def get_pg_cursor() -> psycopg2._psycopg.cursor:
-    conn = psycopg2.connect(
+def get_pg_cursor() -> psycopg.connection.Connection:
+    conn = psycopg.connect(
         host=settings.postgres_url,
         port=settings.postgres_port,
         user=settings.postgres_user,
