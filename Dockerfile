@@ -5,17 +5,17 @@ RUN curl -sSL https://install.python-poetry.org | python3 -
 
 # ускоряем деплой
 # (ставим либы, только если они поменялись)
-COPY ./poetry.lock /app/
-COPY ./pyproject.toml /app/
-COPY ./.python-version /app/
-COPY ./src/atomic_hack/cli.py /app/src/atomic_hack/
-WORKDIR /app
+COPY ./poetry.lock /atomic_hack/
+COPY ./pyproject.toml /atomic_hack/
+COPY ./.python-version /atomic_hack/
+COPY ./src/atomic_hack/cli.py /atomic_hack/src/atomic_hack/
+WORKDIR /atomic_hack
 
 RUN \
     /root/.local/bin/poetry env use $(cat .python-version) && \
     /root/.local/bin/poetry install
 
-COPY . /app
+COPY . /atomic_hack
 
 # резолвим зависимости локальной фигни
 RUN /root/.local/bin/poetry install
