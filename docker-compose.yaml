@@ -17,6 +17,8 @@ services:
       - 'llm_credentials.env'
     depends_on:
       - postgres
+    volumes:
+      - './models:/models'
     deploy:
       resources:
         reservations:

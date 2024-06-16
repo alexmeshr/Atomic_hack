@@ -12,7 +12,7 @@ from atomic_hack.settings import settings
 
 class CustomEmbeddingsModel(Embeddings):
     def __init__(self, model_name: str):
-        self.e_model = SentenceTransformer(model_name)
+        self.e_model = SentenceTransformer(model_name, cache_folder=settings.llm_cache_dir_path)
 
     def get_embedding(self, sentence):
         e = self.e_model.encode(sentence, convert_to_tensor=True)
