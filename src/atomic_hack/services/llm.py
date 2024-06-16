@@ -57,14 +57,8 @@ class SaigaLLM:
             device_map='auto',
         )
         self._model.eval()
-        self._tokenizer = AutoTokenizer.from_pretrained(
-            settings.saiga_model_name,
-            cache_dir=settings.llm_cache_dir_path,
-        )
-        self._generation_config = GenerationConfig.from_pretrained(
-            settings.saiga_model_name,
-            cache_dir=settings.llm_cache_dir_path
-        )
+        self._tokenizer = AutoTokenizer.from_pretrained(settings.saiga_model_name)
+        self._generation_config = GenerationConfig.from_pretrained(settings.saiga_model_name)
 
     def get_model_output(self, msgs: list[LLMMessage]) -> str:
         assert self._model is not None
