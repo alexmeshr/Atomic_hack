@@ -1,7 +1,12 @@
 services:
   ahack-web:
     build: .
-    command: ahack run-server
+    entrypoint:
+      - 'poetry'
+      - 'run'
+    command:
+      - 'ahack'
+      - 'run-server'
     ports:
       - "80:8888"
     env_file:
@@ -11,7 +16,12 @@ services:
 
   ahack-llm:
     build: .
-    command: ahack llm-pipeline
+    entrypoint:
+      - 'poetry'
+      - 'run'
+    command:
+      - 'ahack'
+      - 'llm-pipeline'
     env_file:
       - 'pg_config.env'
       - 'llm_credentials.env'
@@ -28,7 +38,13 @@ services:
   ahack-load-instructions:
     restart: 'no'
     build: .
-    command: ahack upload-instructions /instructions
+    entrypoint:
+      - 'poetry'
+      - 'run'
+    command:
+      - 'ahack'
+      - 'upload-instructions'
+      - '/instructions'
     env_file:
       - 'pg_config.env'
     volumes:
