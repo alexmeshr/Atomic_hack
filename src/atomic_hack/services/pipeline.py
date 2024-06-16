@@ -38,7 +38,7 @@ def _get_k_closest(problem: str, k: int) -> list[str]:
 
     closest_docs = pgv.get_k_closest(problem, k=k)
     del pgv
-    return [doc.page_content for doc in closest_docs]
+    return [doc.page_content + f" на странице {doc.metadata['page']} в инструкции {doc.metadata['source']}" for doc in closest_docs]
 
 
 def _construct_response(history: list[str], instructions: list[str]) -> str:
