@@ -58,16 +58,16 @@ class PGVectorStorage:
 
         self._embeddings = CustomEmbeddingsModel(settings.embeddings_model_name)
 
-        self._vectorstore = PGVector.from_texts(
-            texts=[
-                'У попа была собака, он её любил. Она съела кусок мяся - он её убил',
-                'У бабы Дуни жила одна рыжая кошечка и 4 котёночка',
-            ],
-            embedding=self._embeddings,
+        self._vectorstore = PGVector(
+            embeddings=self._embeddings,
             collection_name='instructions',
             connection=self._get_pgvec_connection_uri(),
-            use_jsonb=True,
+            use_jsonb=True
         )
+
+    def add_documents(self, new_documents: list[Document]):
+        self._ensure_initialized()
+        self._vectorstore.aadd_documents(documents=new_documents)
 
     def add_texts(self, new_queries: list[str]):
         self._ensure_initialized()

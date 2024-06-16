@@ -34,6 +34,17 @@ services:
     depends_on:
       - postgres
 
+  ahack-load-instructions:
+    restart: 'no'
+    build: .
+    command: ahack upload-instructions --path /instructinos
+    env_file:
+      - 'pg_config.env'
+    volumes:
+      - "./instructions:/instructions"
+    depends_on:
+      - postgres
+
   postgres:
     build:
       context: .

@@ -1,7 +1,9 @@
+import os
+
 import click
 import uvicorn
 
-from atomic_hack.services import pipeline
+from atomic_hack.services import pipeline, pdf_loader
 from atomic_hack.web import app
 
 
@@ -19,7 +21,19 @@ def run_server(host: str, port: int):
 
 @cli.command
 def llm_pipeline():
-    pipeline.summarization_example()
+    # pipeline.summarization_example()
+    pipeline.main_pipeline()
+
+
+@cli.command
+@click.option('--path', default=None)
+def upload_instructions(path: str):
+    assert isinstance(path, str)
+
+    pdf_loader.process_folder_with_pdfs(path)
+    print('DONE! DONE! DONE! DONE! DONE! DONE! DONE! DONE! DONE! DONE!')
+    print("pds'f are loaded!")
+    print('DONE! DONE! DONE! DONE! DONE! DONE! DONE! DONE! DONE! DONE!')
 
 
 @cli.command

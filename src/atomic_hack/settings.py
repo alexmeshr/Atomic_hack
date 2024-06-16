@@ -25,6 +25,7 @@ class _Settings(BaseSettings):
         default='IlyaGusev/saiga_llama3_8b',
     )
     huggingface_token: str | None = Field(description='токен для доступа к huggingface', default=None)
+    llm_worker_delay_seconds: int = Field(description='пауза, если для воркера нет тасок', default=5)
 
 
 settings = _Settings()
