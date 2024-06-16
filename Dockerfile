@@ -8,6 +8,7 @@ RUN curl -sSL https://install.python-poetry.org | python3 -
 COPY ./poetry.lock /app/
 COPY ./pyproject.toml /app/
 COPY ./.python-version /app/
+COPY ./src/atomic_hack/cli.py /app/src/atomic_hack/
 WORKDIR /app
 
 RUN \
