@@ -28,7 +28,7 @@ services:
   ahack-load-instructions:
     restart: 'no'
     build: .
-    command: ahack upload-instructions --path /instructions
+    command: ahack upload-instructions /instructions
     env_file:
       - 'pg_config.env'
     volumes:

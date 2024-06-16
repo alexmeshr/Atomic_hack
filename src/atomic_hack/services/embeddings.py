@@ -65,14 +65,14 @@ class PGVectorStorage:
             use_jsonb=True
         )
 
-    def add_documents(self, new_documents: list[Document]):
+    def add_documents(self, new_documents: list[Document], **kwargs):
         self._ensure_initialized()
-        self._vectorstore.add_documents(documents=new_documents)
+        self._vectorstore.add_documents(documents=new_documents, **kwargs)
 
-    def add_texts(self, new_queries: list[str]):
+    def add_texts(self, new_queries: list[str], **kwargs):
         self._ensure_initialized()
-        self._vectorstore.add_texts(texts=new_queries)
+        self._vectorstore.add_texts(texts=new_queries, **kwargs)
 
-    def get_k_closest(self, query: str, k: int) -> list[Document]:
+    def get_k_closest(self, query: str, k: int, **kwargs) -> list[Document]:
         self._ensure_initialized()
-        return self._vectorstore.similarity_search(query, distance_metric='cos', k=k)
+        return self._vectorstore.similarity_search(query, distance_metric='cos', k=k, **kwargs)

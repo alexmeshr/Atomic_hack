@@ -21,12 +21,11 @@ def run_server(host: str, port: int):
 
 @cli.command
 def llm_pipeline():
-    # pipeline.summarization_example()
     pipeline.main_pipeline()
 
 
 @cli.command
-@click.option('--path', default=None)
+@click.argument('path', default=None)
 def upload_instructions(path: str):
     assert isinstance(path, str)
 
@@ -35,8 +34,3 @@ def upload_instructions(path: str):
     print('DONE! DONE! DONE! DONE! DONE! DONE! DONE! DONE! DONE! DONE!')
     print("pds'f are loaded!")
     print('DONE! DONE! DONE! DONE! DONE! DONE! DONE! DONE! DONE! DONE!')
-
-
-@cli.command
-def do():
-    pass

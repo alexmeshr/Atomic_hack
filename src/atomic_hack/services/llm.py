@@ -37,6 +37,16 @@ ASSISTANT_ADDITIONAL_SUMMARIZATION_PROMPT: str = (
     'выдай ответ в нужном формате, там не должно быть лишних слов, не должно быть форматирования, не должно быть ```'
 )
 
+SYSTEM_COMBINE_RESPONSE_PROMBP: str = '''Тебе даны инструкции. Ты можешь на них ссылаться.
+С помощью этих инструкций ты помогаешь пользователям решать их проблемы.
+
+В начале тебе будут отправлены инструкции, потом история общения с пользоваетелм.
+Этот пользователь столкнулся с проблемой. Твоя задача - ему помочь. Прочитав твой ответ пользователь должен понять,
+как ему решить свою проблему.
+
+Твои ответы должны быть развернутыми, но не избыточными.
+'''
+
 
 class SaigaLLM:
     __slots__ = ['_model', '_tokenizer', '_generation_config']
@@ -105,6 +115,14 @@ class SaigaLLM:
 
         logger.error('моделька облажалась дважды на входе: `%s`', user_input)
         return []
+
+    def construct_user_response(self, history: list[str], instructions: list[str]):
+        msgs = [
+            create_message(content=SYSTEM_COMBINE_RESPONSE_PROMBP, role=MessageRole.system),
+            create_message(content='ИНСТРУКЦИИ:\n' + '\n'.join(instructions), role=MessageRole.assistant),
+            create_message(content='\nИСТОРИЯ ПОЛЬЗОВАТЕЛЯ\n' + '\n'.join(history), role=MessageRole.user),
+        ]
+        return self.get_model_output(msgs)
 
 
 def create_message(content: str, role: MessageRole = MessageRole.user) -> LLMMessage:
