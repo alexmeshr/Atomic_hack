@@ -15,20 +15,23 @@ def process_folder_with_pdfs(path_to_folder: str):
         separators=['\n\n', '.'],
     )
 
+    print('creating loaders')
     loaders = [PyPDFLoader(os.path.join(path_to_folder, pdf)) for pdf in os.listdir(path_to_folder)]
 
     bad_chars = ('!', '*', '\n', '..')
     def _remove_all_bad(doc: Document) -> Document:
         """INPLACE"""
         for char in bad_chars:
-            doc.text_content = doc.text_content.replace(char, '')
+            doc.page_content = doc.page_content.replace(char, '')
         return doc
 
+    print('processing')
     all_pages: list[Document] = [
         _remove_all_bad(p) for loader in tqdm(loaders) for p in loader.load_and_split(text_splitter)
         if p.metadata['page'] > 4
     ]
 
+    print('saving')
     pgvs = embeddings.PGVectorStorage()
     pgvs.setup()
 

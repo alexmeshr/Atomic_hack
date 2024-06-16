@@ -67,7 +67,7 @@ class PGVectorStorage:
 
     def add_documents(self, new_documents: list[Document]):
         self._ensure_initialized()
-        self._vectorstore.aadd_documents(documents=new_documents)
+        self._vectorstore.add_documents(documents=new_documents)
 
     def add_texts(self, new_queries: list[str]):
         self._ensure_initialized()

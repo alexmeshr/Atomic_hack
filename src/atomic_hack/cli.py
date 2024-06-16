@@ -30,6 +30,7 @@ def llm_pipeline():
 def upload_instructions(path: str):
     assert isinstance(path, str)
 
+    print('running...')
     pdf_loader.process_folder_with_pdfs(path)
     print('DONE! DONE! DONE! DONE! DONE! DONE! DONE! DONE! DONE! DONE!')
     print("pds'f are loaded!")
